@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="emp_db" Class="My_ProductsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=emp_db;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False" SettingsObjectName="LINQ_MODE2.Properties.Settings" SettingsPropertyName="emp_dbConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Products" Member="Products">
+    <Type Name="Product">
+      <Column Name="ProductID" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProductName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="UnitPrice" Type="System.Decimal" DbType="SmallMoney" CanBeNull="true" />
+      <Column Name="LicensesInHand" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReorderLevel" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Association Name="Product_Order" Member="Orders" ThisKey="ProductID" OtherKey="ProductID" Type="Order" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StateMaster" Member="StateMasters">
+    <Type Name="StateMaster">
+      <Column Name="StateID" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StateName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="StateDesc" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CountryID" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Association Name="StateMaster_CityMaster" Member="CityMasters" ThisKey="StateID" OtherKey="StateID" Type="CityMaster" />
+      <Association Name="CountryMaster_StateMaster" Member="CountryMaster" ThisKey="CountryID" OtherKey="CountryID" Type="CountryMaster" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CityMaster" Member="CityMasters">
+    <Type Name="CityMaster">
+      <Column Name="CityID" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CityName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CityDesc" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="StateID" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Association Name="StateMaster_CityMaster" Member="StateMaster" ThisKey="StateID" OtherKey="StateID" Type="StateMaster" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CountryMaster" Member="CountryMasters">
+    <Type Name="CountryMaster">
+      <Column Name="CountryID" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CountryName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CountryDesc" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Association Name="CountryMaster_StateMaster" Member="StateMasters" ThisKey="CountryID" OtherKey="CountryID" Type="StateMaster" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Orders" Member="Orders">
+    <Type Name="Order">
+      <Column Name="OrderID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrderDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ClientID" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ShippingDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Product_Order" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Projects" Member="Projects">
+    <Type Name="Project">
+      <Column Name="ProjectID" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="ProjectName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
