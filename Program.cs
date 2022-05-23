@@ -15,7 +15,7 @@ namespace LINQ_MODE2
         public static void Query1()
         {
             My_ProductsDataContext dc = new My_ProductsDataContext();
-            var result = dc.Products.Where(p => p.ProductName.StartsWith("X"));
+            var result = dc.Products.Where(p => p.ProductName.StartsWith("V"));
             foreach(var r1 in result)
             {
                 Console.WriteLine("Results are {0},{1},{2},{3}",r1.ProductID,r1.ProductName,r1.ReorderLevel,r1.UnitPrice);
